@@ -1,6 +1,550 @@
-<html>
-  <body>
-    <h1>Numora</h1>
-    <p>App Ads Verification</p>
-  </body>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numaro</title>
+  <meta name="description" content="Numaro - premium casual puzzle oyunu resmi sayfası" />
+  <style>
+    :root {
+      --bg-1: #12042b;
+      --bg-2: #220852;
+      --bg-3: #3d1181;
+      --panel: rgba(255,255,255,0.08);
+      --panel-border: rgba(255,255,255,0.14);
+      --text: #f6eeff;
+      --muted: #d8c9ef;
+      --accent: #ffb22e;
+      --accent-2: #ff7a00;
+      --glow: rgba(178,106,255,0.45);
+      --green: #57c66d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(175,91,255,0.26), transparent 22%),
+        radial-gradient(circle at 85% 15%, rgba(53,186,255,0.18), transparent 18%),
+        radial-gradient(circle at 50% 80%, rgba(255,111,0,0.12), transparent 22%),
+        linear-gradient(180deg, var(--bg-3), var(--bg-2) 40%, var(--bg-1));
+      min-height: 100%;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 12% 24%, rgba(255,255,255,0.55), transparent 60%),
+        radial-gradient(1.5px 1.5px at 80% 18%, rgba(255,255,255,0.45), transparent 60%),
+        radial-gradient(1.5px 1.5px at 62% 42%, rgba(255,255,255,0.38), transparent 60%),
+        radial-gradient(2px 2px at 34% 72%, rgba(255,255,255,0.4), transparent 60%),
+        radial-gradient(1.5px 1.5px at 88% 76%, rgba(255,255,255,0.36), transparent 60%);
+      opacity: 0.9;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(13, 4, 33, 0.8), rgba(13, 4, 33, 0.45));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 1.1rem;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #62e9ff, #7d60ff 48%, #ff8d2e);
+      box-shadow: 0 0 30px rgba(108, 82, 255, 0.45);
+      position: relative;
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.24);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 76px 0 48px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card, .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+      border: 1px solid var(--panel-border);
+      border-radius: 28px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.28), 0 0 50px rgba(120, 83, 255, 0.12);
+    }
+
+    .hero-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -40px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 76, 255, 0.35), transparent 62%);
+      filter: blur(10px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #f7ddff;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      line-height: 0.98;
+      margin: 0 0 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(180deg, #ffffff 10%, #ffefad 55%, #ffb22e 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 24px rgba(255, 178, 46, 0.18);
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 0 26px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 18px;
+      padding: 14px 22px;
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #ffc146, #ff9a1f 70%, #ff7d02);
+      color: #2f1200;
+      box-shadow: 0 12px 28px rgba(255, 153, 0, 0.28), 0 0 40px rgba(255, 170, 41, 0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .preview {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .phone {
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(186, 104, 255, 0.25), transparent 28%),
+        linear-gradient(180deg, #2b085f, #180635 60%, #110327);
+      min-height: 560px;
+      position: relative;
+      padding: 18px;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(255,255,255,0.06);
+    }
+
+    .screen {
+      display: grid;
+      gap: 14px;
+    }
+
+    .small-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .game-title {
+      margin-top: 26px;
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .game-title span {
+      display: block;
+      background: linear-gradient(180deg, #ffffff 15%, #ffe093 58%, #ffae24 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .play-btn {
+      margin-top: 22px;
+      background: linear-gradient(180deg, #ffc84e, #ffab24 70%, #ff8609);
+      color: #2f1200;
+      border-radius: 24px;
+      padding: 20px 26px;
+      font-weight: 900;
+      font-size: 1.9rem;
+      text-align: center;
+      box-shadow: 0 18px 30px rgba(255, 156, 18, 0.24), 0 0 38px rgba(255, 163, 25, 0.22);
+    }
+
+    .mini-levels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .mini-card {
+      background: linear-gradient(180deg, rgba(117, 66, 214, 0.84), rgba(52, 25, 117, 0.9));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(133, 89, 255, 0.16);
+    }
+
+    .ad-box {
+      margin-top: auto;
+      background: linear-gradient(180deg, rgba(128, 62, 196, 0.7), rgba(57, 24, 104, 0.92));
+      border-radius: 22px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ad-box::before,
+    .ad-box::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,178,46,0.28), transparent 60%);
+      filter: blur(10px);
+    }
+
+    .ad-box::before { left: -18px; bottom: -50px; }
+    .ad-box::after { right: -20px; top: -44px; }
+
+    .ad-label {
+      position: relative;
+      z-index: 1;
+      background: rgba(22,10,46,0.82);
+      border-radius: 16px;
+      padding: 10px 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+    }
+
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .cell {
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(82, 31, 166, 0.82), rgba(39, 15, 81, 0.96));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: inset 0 0 14px rgba(255,255,255,0.06);
+    }
+
+    .cell.active { background: linear-gradient(180deg, #5fd3ff, #3f95ff); color: #fff; box-shadow: 0 0 22px rgba(95, 211, 255, 0.48); }
+    .cell.good { background: linear-gradient(180deg, #7de38b, #53bb63); color: #fff; }
+    .cell.bad { background: linear-gradient(180deg, #ff8d92, #ff5d6e); color: #fff; }
+
+    .section {
+      padding: 18px 0 44px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .section p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 850px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .feature {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .feature h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .feature p {
+      font-size: 0.97rem;
+    }
+
+    .notice {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(87, 198, 109, 0.12);
+      border: 1px solid rgba(87, 198, 109, 0.25);
+      color: #eaffef;
+    }
+
+    footer {
+      padding: 26px 0 48px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(100% - 20px, 1120px); }
+      .hero-card, .preview, .feature { padding-left: 20px; padding-right: 20px; }
+      .phone { min-height: 520px; }
+      .game-title { font-size: 2.35rem; }
+      .play-btn { font-size: 1.6rem; }
+      .mini-levels { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <span>Numaro</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">Oyun Hakkında</a>
+        <a href="#privacy">Gizlilik</a>
+        <a href="/numaro-site/app-ads.txt">app-ads.txt</a>
+        <a href="mailto:numarogame@gmail.com">İletişim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div class="hero-card">
+        <div class="eyebrow">Premium Casual Puzzle • Android</div>
+        <h1><span class="gradient-text">Numaro</span><br />Zekânı Işıltıyla Test Et</h1>
+        <p class="lead">
+          Numaro; güçlü görsel dili, tatmin edici hamle hissi ve katmanlı ilerleme yapısıyla tasarlanmış premium bir sayı bulmaca oyunudur. Hedefin; kurallara uygun sıçrayarak tüm kareleri doğru sırayla doldurmak.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:numarogame@gmail.com?subject=Numaro%20Geri%20Bildirim">Geri Bildirim Gönder</a>
+          <a class="btn btn-secondary" href="#privacy">Gizlilik Politikası</a>
+        </div>
+      </div>
+
+      <div class="hero-card preview">
+        <div class="phone">
+          <div class="screen">
+            <div class="small-top">
+              <div class="chip">🎮 Mobil Oyun</div>
+              <div class="chip">⚙️ Ayarlar</div>
+            </div>
+            <div class="game-title"><span>Numaro</span></div>
+            <div class="play-btn">Oyna</div>
+            <div class="mini-levels">
+              <div class="mini-card"><strong>5x5</strong><br><small>Başlangıç</small></div>
+              <div class="mini-card"><strong>5x6</strong><br><small>Devam</small></div>
+              <div class="mini-card"><strong>5x7</strong><br><small>İleri</small></div>
+            </div>
+            <div class="ad-box">
+              <div class="ad-label">REKLAM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container section">
+      <h2>Numaro Nedir?</h2>
+      <p>
+        Numaro; oyuncunun sayıları belirli sıçrama kurallarıyla doğru sıraya yerleştirerek tüm tahtayı tamamlamaya çalıştığı bir bulmaca deneyimidir. Kısa ama tatmin edici oturumlar, sonsuz ilerleme kurgusu ve premium görsel sunum ile mobilde akıcı bir oyun deneyimi hedefler.
+      </p>
+      <div class="grid-3">
+        <div class="feature">
+          <h3>Sonsuz İlerleme</h3>
+          <p>5x5 ile başla, kademe kademe büyüyen tahtalarda ustalaş. 10x10 seviyesine kadar yüksel, ardından daha zor varyasyonlarla devam et.</p>
+        </div>
+        <div class="feature">
+          <h3>Premium Tasarım</h3>
+          <p>Mor uzay teması, glow efektleri, katmanlı paneller ve yüksek kontrastlı arayüz ile gerçek mobil oyun hissi verir.</p>
+        </div>
+        <div class="feature">
+          <h3>Akıllı Yardımcılar</h3>
+          <p>Undo sistemi, ödüllü reklam mantığı ve ilerleme kaydı sayesinde kullanıcı deneyimi dengeli ve sürdürülebilir tutulur.</p>
+        </div>
+      </div>
+      <div class="notice">
+        Bu web sayfası Numaro oyununun resmi bilgi ve doğrulama sayfasıdır. Reklam doğrulama dosyası bu alan adında yayınlanmaktadır.
+      </div>
+    </section>
+
+    <section id="privacy" class="container section">
+      <h2>Gizlilik ve İletişim</h2>
+      <p>
+        Numaro; kullanıcı deneyimini geliştirmek, uygulama performansını izlemek ve reklam sistemlerini yönetmek amacıyla sınırlı teknik veriler işleyebilir. Reklam, analiz ve hata raporlama gibi alanlarda üçüncü taraf servisler kullanılabilir.
+      </p>
+      <div class="grid-3">
+        <div class="feature">
+          <h3>Gizlilik Politikası</h3>
+          <p>Uygulamanın veri kullanımı, reklam işleme süreçleri ve kullanıcı hakları hakkında ayrıntılı bilgi için gizlilik politikası bağlantısını kullanabilirsin.</p>
+        </div>
+        <div class="feature">
+          <h3>Geri Bildirim</h3>
+          <p>Öneri, hata bildirimi veya destek için bize e-posta gönderebilirsin. Oyun deneyimini birlikte geliştirelim.</p>
+        </div>
+        <div class="feature">
+          <h3>Reklam Doğrulama</h3>
+          <p>app-ads.txt dosyası bu site üzerinde yayınlanmıştır. Bu sayede reklam yetkilendirmesi ve sahteciliğe karşı doğrulama yapılır.</p>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:22px;">
+        <a class="btn btn-secondary" href="mailto:numarogame@gmail.com?subject=Numaro%20Destek">numarogame@gmail.com</a>
+        <a class="btn btn-primary" href="/numaro-site/app-ads.txt">app-ads.txt Dosyasını Aç</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-box">
+      <span>© 2026 Numaro. Tüm hakları saklıdır.</span>
+      <span>Resmi iletişim: numarogame@gmail.com</span>
+    </div>
+  </footer>
+</body>
 </html>
